@@ -1,0 +1,93 @@
+<div class="login">
+  <a class="hiddenanchor" id="signup"></a>
+  <a class="hiddenanchor" id="signin"></a>
+  <div class="login_wrapper">
+    <div class="animate form login_form">
+      <form
+        #loginForm="ngForm"
+        class="form-horizontal form-label-left input_mask"
+        method="post"
+        novalidate
+        id="loginForm"
+      >
+        <!-- <div class="col-xs-12 form-group text-center">
+          <img src="assets/images/snap_logo.svg" />
+        </div> -->
+        <div class="col-xs-12 form-group has-feedback">
+          <input
+            type="text"
+            class="form-control has-feedback-left form-field-error"
+            name="loginUsername"
+            [(ngModel)]="loginUsername"
+            #emailField="ngModel"
+            required
+            placeholder="Username"
+            [ngClass]="{
+              'form-field-error':
+                !emailField?.valid && (emailField?.dirty || emailField?.touched)
+            }"
+          />
+          <span class="fa fa-user form-control-feedback left" aria-hidden="true"
+            ><fa-icon [icon]="faUser"></fa-icon
+          ></span>
+        </div>
+        <div class="col-xs-12 form-group has-feedback">
+          <input
+            type="password"
+            id="loginPwd"
+            class="form-control has-feedback-left"
+            name="loginPassword"
+            required
+            #passwordField="ngModel"
+            [(ngModel)]="loginPassword"
+            placeholder="Password"
+            [ngClass]="{
+              'form-field-error':
+                !passwordField?.valid && (passwordField?.dirty || passwordField?.touched)
+            }"
+          />
+          <span class="fa fa-lock form-control-feedback left" aria-hidden="true"
+            ><fa-icon [icon]="faLock"></fa-icon
+          ></span>
+        </div>
+        <div class="col-xs-12 form-group">
+          <mat-checkbox
+            type="checkbox"
+            checked="checked"
+            [(ngModel)]="loginRemember"
+            name="loginRemember"
+            >Remember Me</mat-checkbox
+          >
+        </div>
+        <div class="form-group">
+          <div class="col-xs-12 text-center">
+            <button
+              type="button"
+              id="submit"
+              class="btn btn-success"
+              style="width: 100%"
+              (click)="login()"
+              [disabled]="!buttonEnabled || !loginForm.valid"
+            >
+              LOGIN
+            </button>
+          </div>
+        </div>
+        <div class="col-xs-12 form-group" style="margin-top: 6px">
+          <div>
+            <a href="#">Forgot password?</a>
+          </div>
+          <div>
+            <a href="#">Create Account</a>
+          </div>
+        </div>
+      </form>
+      <mat-progress-bar
+        mode="indeterminate"
+        #progressBar
+        mode="query"
+        *ngIf="querying"
+      ></mat-progress-bar>
+    </div>
+  </div>
+</div>

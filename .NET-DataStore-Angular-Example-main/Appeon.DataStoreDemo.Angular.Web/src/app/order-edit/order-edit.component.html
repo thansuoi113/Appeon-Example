@@ -1,0 +1,20 @@
+<div class="app-order-edit">
+  <div class="row loading-panel" *ngIf="loadingModel">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <mat-spinner class="center" diameter="35">
+        </mat-spinner>
+          <h4 class="center">
+            Loading Sales Order {{modelId}}
+          </h4>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loadModelFailed" class="center error">
+    <h3>Could not load the specified order</h3>
+    <button type="button" class="btn btn-warning" (click)="loadModel()">
+      Retry
+    </button>
+  </div>
+  <app-add-order [edit]="true"></app-add-order>
+</div>

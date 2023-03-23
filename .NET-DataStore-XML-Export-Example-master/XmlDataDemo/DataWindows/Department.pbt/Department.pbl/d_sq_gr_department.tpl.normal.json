@@ -1,0 +1,18 @@
+[
+  @foreach(orderby("modifieddate Asc") groupby("modifieddate") into group1)
+  {
+    {
+      "@(modifieddate)": 
+       [
+         @foreach(group1)
+         {
+           {
+             "departmentid": "@(departmentid)",
+             "name": "@(name)",
+             "groupname": "@(groupname)"
+           },
+         }
+       ]
+    },
+  }
+]

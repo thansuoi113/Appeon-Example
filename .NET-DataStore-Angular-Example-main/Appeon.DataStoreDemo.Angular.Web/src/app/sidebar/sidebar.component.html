@@ -1,0 +1,90 @@
+<section [class.sidenav]="isExpanded">
+  <div class="nav_title main_menu" style="border: 0" >
+    <div *ngIf="isExpanded" class="navbar banner">
+      <a href="https://www.appeon.com" target="_blank" class="site_title">
+        <img src="assets/images/appeon.svg" />
+        <!-- menu profile quick info -->
+      </a>
+    </div>
+    
+    <div class="profile" *ngIf="isExpanded">
+      <div class="profile_pic">
+        <img
+          src="assets/images/user.png"
+          alt="..."
+          class="img-circle profile_img"
+        />
+      </div>
+      <div class="profile_info">
+        <span>Welcome,</span>
+        <h2>{{ username }}</h2>
+      </div>
+    </div>
+
+    <div class="menu_section">
+      <h3 *ngIf="isExpanded">General</h3>
+      <ul class="nav side-menu">
+        <li>
+          <a [routerLink]="['/']" *ngIf="isExpanded"
+            ><fa-icon [icon]="faHome" class="icon"></fa-icon> Home
+          </a>
+          <a [routerLink]="['/']" *ngIf="!isExpanded"
+            ><fa-icon [icon]="faHome" class="iconSmall"></fa-icon>
+            <div class="label">Home</div>
+          </a>
+        </li>
+        <li *ngIf="!isExpanded" ngbDropdown placement="right" container="body">
+          <a class="dropdown-no-icon" ngbDropdownToggle
+            ><fa-icon [icon]="faEdit" class="iconSmall"></fa-icon>
+            <div class="label">
+              <span>Orders <br />Manager</span>
+            </div>
+          </a>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem routerLink="salesOrders/add">
+              Add Order
+            </button>
+            <button ngbDropdownItem routerLink="salesOrders">
+              Order History
+            </button>
+          </div>
+          <!-- <mat-menu #navMenu="matMenu" xPosition="before">
+            <button mat-menu-item>Add Order</button>
+            <button mat-menu-item>Order History</button>
+          </mat-menu> -->
+        </li>
+        <li>
+          <mat-expansion-panel
+            class="nav-item"
+            style="visibility:{{ isExpanded ? 'visible' : 'hidden' }};"
+          >
+            <mat-expansion-panel-header class="nav-entry">
+              <mat-panel-title class="nav-item-title">
+                <div>
+                  <fa-icon [icon]="faEdit" class="icon"></fa-icon>
+                  <span> Orders Manager </span>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item
+                style="margin-left: -10px"
+                [routerLink]="['salesOrders/add']"
+              >
+                <span class="nav-item-text">Add Order</span>
+              </mat-list-item>
+              <mat-list-item
+                style="margin-left: -10px"
+                [routerLink]="['salesOrders']"
+              >
+                <span class="nav-item-text">Order History</span>
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+

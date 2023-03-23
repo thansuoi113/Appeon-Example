@@ -1,0 +1,23 @@
+.container{
+  max-width: 100%;
+  padding: 10px 0px;
+  background: #F7F7F7;
+}
+
+.main_container {
+  margin: 0px 20px;
+}
+
+div.right_col {
+  min-height: 1316.43px;
+}
+
+.pull-right {
+  float:right;
+  color: #3a4851;
+}
+
+.mat-progress-spinner {
+  margin-right: auto;
+  margin-left: auto;
+}

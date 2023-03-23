@@ -1,0 +1,62 @@
+#suboutlet {
+  min-height: 100%;
+}
+body {
+  color: #3a4851;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.471;
+  background: #f7f7f7;
+}
+
+.sidenav {
+  background: #2a3f54;
+  width: 230px;
+}
+
+.content-container {
+  min-width: 70px;
+}
+
+.tp-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+.tp-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+}
+
+.navbar_container {
+  box-sizing: border-box;
+  padding: 25px;
+}
+
+.mat-sidenav .mat-drawer-inner-container {
+  overflow: hidden !important;
+}
+
+mat-sidenav[style] {
+  visibility: visible !important;
+}
+.mat-drawer {
+  transform: none !important;
+}
+
+.mat-sidenav-content
+{
+  background: #F7F7F7;
+}
+
+
+.footer {
+  line-height: 10px;
+}

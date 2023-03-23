@@ -1,0 +1,43 @@
+
+.container{
+  max-width: 100%;
+  padding: 10px 20px;
+  background: #F7F7F7;
+}
+
+.x_content {
+  overflow-x: scroll;
+}
+
+.mat-spinner {
+  margin: 20px ;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mat-header-row {
+  width:100%;
+
+}
+
+.mat-row {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+
+.mat-table th.mat-header-cell {
+  font-size: 13px;
+}
+
+.mat-table a.btn {
+  font-size: 12px;
+  padding: .2rem .2rem
+}
+
+.container {
+  height: 100%;
+}

@@ -1,0 +1,70 @@
+nav {
+  background-color: #EDEDED;
+  border-bottom: 1px solid #D9DEE4;
+}
+
+.toggle {
+  font-size: 26px;
+  color: #5A738E;
+  width: 100%;
+  height: 100%;
+}
+
+.toggle:hover {
+  color: #23527C;
+}
+
+.toggle .a {
+  padding: 0px;
+}
+
+.fa-icon .fa {
+  padding: 0px;
+}
+
+.bg-light {
+  background-color: #EDEDED !important;
+}
+
+span.navbar-text {
+  color: #515356;
+  cursor: pointer;
+}
+
+.navbar-text .ng-fa-icon{
+  font-size: 10px;
+}
+
+#profile-bg {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  top: 0;
+  padding: 31px 60px;
+}
+
+#profile-bg:hover {
+  background: #D9DEE4;
+}
+
+#profile-text {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  vertical-align: middle;
+}
+
+#profile-text img {
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.mat-menu-item .ng-fa-icon {
+  float:right;
+}
+
+button.mat-menu-item {
+  width: 210px;
+}

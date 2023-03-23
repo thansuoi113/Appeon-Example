@@ -1,0 +1,29 @@
+<mat-sidenav-container class="tp-container" autosize>
+  <mat-sidenav
+    mode="side"
+    opened="{{ isExpanded }}"
+    class="sidenav"
+    #sidenav
+    fixedInViewport="true"
+    style="width: {{isExpanded ? 230 : 80}}px"
+  >
+    <section class="tp-section">
+      <app-sidebar #sidebar [isExpanded]="isExpanded" class="app-sidebar"></app-sidebar>
+    </section>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style=" min-height: 100%; padding-left: {{isExpanded ? 0: 80}}px">
+      <div>
+        <app-navbar></app-navbar>
+      </div>
+      <div id="suboutlet">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <div class="footer">
+      <app-footer-component>
+
+      </app-footer-component>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

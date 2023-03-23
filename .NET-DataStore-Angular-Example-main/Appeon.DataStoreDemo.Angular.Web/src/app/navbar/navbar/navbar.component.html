@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <div class="toggle" style="padding: 0px; margin-left: -15px">
+          <a (click)="toggle()" id="menu_toggle">
+            <fa-icon [icon]="faBars" class="fa"></fa-icon>
+          </a>
+        </div>
+      </li>
+    </ul>
+    <span class="navbar-text" [matMenuTriggerFor]="profileMenu">
+      <div id="profile-bg"></div>
+      <div id="profile-text">
+        <img src="assets/images/user.png" width="29px" height="29px" />
+        Admin <fa-icon [icon]="faChevronDown"></fa-icon>
+      </div>
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item (click)="openDialog()">
+          <span>Help</span>
+        </button>
+        <button mat-menu-item [routerLink]="['/login']">
+          <span>Logout</span>
+          <fa-icon [icon]="faSignOutAlt"></fa-icon>
+        </button>
+      </mat-menu>
+    </span>
+  </div>
+</nav>

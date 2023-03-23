@@ -1,0 +1,163 @@
+<div class="dialog">
+  <div class="title d-flex justify-content-between">
+    <div class="title-text">
+      <h2 *ngIf="data">Edit Order Detail<small></small></h2>
+      <h2 *ngIf="!data">Add Order Detail<small></small></h2>
+    </div>
+    <div class="close-button">
+      <fa-icon
+        class="pad-5 pointer"
+        [icon]="faTimes"
+        (click)="closeDialog(false)"
+      ></fa-icon>
+    </div>
+  </div>
+  <div class="separator-bottom"></div>
+  <div class="content container">
+    <form #addEditForm="ngForm">
+      <div class="form-row">
+        <div class="col">
+          <label for="orderQtyInput" class="label-text"> Product * </label>
+        </div>
+        <div class="col">
+          <ng-select
+            name="product"
+            class="product-select"
+            [items]="products$ | async"
+            bindLabel="name"
+            #productSelect="ngModel"
+            bindValue="id"
+            (change)="productSelectionChanged($event)"
+            [ngClass]="{
+              'form-field-error':
+                !productSelect?.valid &&
+                (productSelect?.dirty || productSelect?.touched)
+            }"
+            required
+            [(ngModel)]="model.productId"
+          >
+          </ng-select>
+          <div class="progress-indicator" *ngIf="loadingProducts">
+            <mat-spinner diameter="35"></mat-spinner>
+          </div>
+          <div class="retry-button" *ngIf="productsFailed">
+            <button
+              type="button"
+              class="btn btn-warning"
+              (click)="loadProducts()"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="unitPrice" class="label-text"> Unit Price * </label>
+        </div>
+        <div class="col">
+          <input
+            class="form-control"
+            name="unitPrice"
+            #unitPriceInput="ngModel"
+            required
+            [ngClass]="{
+              'form-field-error':
+                !unitPriceInput?.valid &&
+                (unitPriceInput?.dirty || unitPriceInput?.touched)
+            }"
+            id="unitPrice"
+            [(ngModel)]="model.unitPrice"
+            [disabled]="edit"
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <label for="orderQty" class="label-text"> Order Qty * </label>
+        </div>
+        <div class="col">
+          <input
+            class="form-control"
+            name="orderQty"
+            id="orderQty"
+            #orderQtyInput="ngModel"
+            [ngClass]="{
+              'form-field-error':
+                !orderQtyInput?.valid &&
+                (orderQtyInput?.dirty || orderQtyInput?.touched)
+            }"
+            [disabled]="edit"
+            [(ngModel)]="model.orderQty"
+            required
+          />
+        </div>
+        <div class="col">
+          <label for="unitPriceDiscount" class="label-text">
+            Unit Price Discount *
+          </label>
+        </div>
+        <div class="col">
+          <input
+            #unitPriceDiscountInput="ngModel"
+            [(ngModel)]="model.unitPriceDiscount"
+            class="form-control"
+            name="unitPriceDiscount"
+            id="unitPriceDiscount"
+            type="number"
+            [min]="0"
+            [max]="1"
+            [ngClass]="{
+              'form-field-error':
+                !unitPriceDiscountInput?.valid &&
+                (unitPriceDiscountInput?.dirty || unitPriceDiscountInput?.touched)
+            }"
+            required
+            min="0"
+            max="1"
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col"><label for="lineTotal"> Line Total * </label></div>
+        <div class="col">
+          <input
+            class="form-control"
+            name="lineTotal"
+            id="lineTotal"
+            disabled
+            [value]="model.unitPrice * model.orderQty * (1 - model.unitPriceDiscount)"
+          />
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+    </form>
+    <div class="separator-bottom"></div>
+    <div
+      class="float-right pad-20"
+      style="position: relative; padding-right: 40px"
+    >
+      <button
+        type="button"
+        class="btn btn-default"
+        (click)="closeDialog(false)"
+      >
+        Close
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="!addEditForm.valid"
+        (click)="saveChanges()"
+      >
+        Save Changes
+      </button>
+      <div
+        class="progress-indicator"
+        style="right: 0px; top: 20px"
+        *ngIf="submitting"
+      >
+        <mat-spinner diameter="35"></mat-spinner>
+      </div>
+    </div>
+  </div>
+</div>

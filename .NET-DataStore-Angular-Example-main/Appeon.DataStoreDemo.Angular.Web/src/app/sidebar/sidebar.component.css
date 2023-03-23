@@ -1,0 +1,120 @@
+.img-circle.profile_img {
+  width: 70%;
+  background: #fff;
+  margin-left: 15%;
+  z-index: 1000;
+  position: inherit;
+  margin-top: 20px;
+  border: 1px solid rgba(52, 73, 94, 0.44);
+  padding: 4px;
+}
+.img-circle {
+  border-radius: 50%;
+}
+
+.iconSmall {
+  padding: 15px;
+  font-size: 1.5em;
+}
+
+.label {
+  margin-top: 10px;
+  font-size: 12px;
+  width: 80px;
+  margin-left: -15px;
+  vertical-align: middle;
+  text-align: center;
+
+}
+
+.icon {
+  padding: 10px;
+}
+
+li {
+  width: 100%;
+}
+
+.nav-entry {
+  padding: 0px 15px;
+}
+
+[class^="mat-expansion-"]:hover,
+[class^="mat-panel-"]:hover,
+[class^="mat-list"]:hover {
+  color: white;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+[class^="mat-expansion-"],
+[class^="mat-panel-"],
+[class^="mat-list"] {
+  color: white;
+  font-size: 1em;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.mat-expansion-panel-header,
+.mat-expansion-panel-header:hover,
+.mat-expansion-panel-header:focus {
+  background: transparent;
+}
+
+.mat-expansion-panel:not(.mat-expanded):not([aria-disabled="true"])
+.mat-expansion-panel-header:hover {
+  background: transparent;
+}
+
+#mat-expansion-panel-header-0,
+#mat-expansion-panel-header-0:hover,
+#mat-expansion-panel-header-0:focus {
+  background: transparent;
+}
+
+.nav-item-text::before {
+    background: #425668;
+    bottom: auto;
+    content: "";
+    height: 8px;
+    left: 23px;
+    margin-top: 7px;
+    position: absolute;
+    vertical-align: middle;
+    right: auto;
+    width: 8px;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.nav-item-text {
+  padding-left: 30px;
+}
+.mat-list-base{
+    padding: 0px;
+}
+
+.mat-expansion-panel-body {
+
+    padding: 0 20px 16px;
+
+}
+
+::ng-deep.app-sidebar {
+  width:100%;
+}
+
+.main_menu {
+  width: 100%;
+}
+
+.main_menu .banner {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.main_menu .banner2 {
+  padding: 18px;
+  font-size: 1.5em;
+}

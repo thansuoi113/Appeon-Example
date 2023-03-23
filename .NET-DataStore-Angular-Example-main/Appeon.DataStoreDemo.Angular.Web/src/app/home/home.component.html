@@ -1,0 +1,138 @@
+<div class="container body" style="max-width: 100%">
+  <div class="main_container">
+    <!-- page content -->
+    <div class="right_col" role="main">
+      <!-- top tiles -->
+      <div class="row tile_count" *ngIf="(this.totals | async) as totals; else notLoaded">
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"
+            ><fa-icon [icon]="faUser"></fa-icon> Total Orders
+          </span>
+          <div class="count">{{ totals.totalNum }}</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"
+            ><fa-icon [icon]="faClock"></fa-icon> New Orders
+          </span>
+          <div class="count">{{ totals.process }}</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"
+            ><fa-icon [icon]="faUser"></fa-icon> Approved Orders
+          </span>
+          <div class="count green">{{ totals.approved }}</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"
+            ><fa-icon [icon]="faUser"></fa-icon> Shipped Orders
+          </span>
+          <div class="count">{{ totals.shipped }}</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"
+            ><fa-icon [icon]="faUser"></fa-icon> Backordered Orders
+          </span>
+          <div class="count">{{ totals.backordered }}</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"
+            ><fa-icon [icon]="faUser"></fa-icon> Cancelled Orders
+          </span>
+          <div class="count red">{{ totals.backordered }}</div>
+        </div>
+      </div>
+      <ng-template #notLoaded>
+        <div class="row tile_count">
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"
+              ><fa-icon [icon]="faUser"></fa-icon> Total Orders
+            </span>
+            <div class="count">--</div>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"
+              ><fa-icon [icon]="faClock"></fa-icon> New Orders
+            </span>
+            <div class="count">--</div>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"
+              ><fa-icon [icon]="faUser"></fa-icon> Approved Orders
+            </span>
+            <div class="count green">--</div>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"
+              ><fa-icon [icon]="faUser"></fa-icon> Shipped Orders
+            </span>
+            <div class="count">--</div>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"
+              ><fa-icon [icon]="faUser"></fa-icon> Backordered Orders
+            </span>
+            <div class="count">--</div>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"
+              ><fa-icon [icon]="faUser"></fa-icon> Cancelled Orders
+            </span>
+            <div class="count red">--</div>
+          </div>
+        </div>
+      </ng-template>
+      <div class="row">
+        <div class="col-md-12 col-sm-8 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Orders Summary</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li>
+                  <a class="collapse-link" name="hide_box1" (click)="hide_Box1()"><i class="fa fa-chevron-up"></i>{{isHidden_box1_text}}</a>
+                </li>
+                <li>
+                  <a class="close-link" name="close_box1"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content" *ngIf="!isHidden_box1">
+              <div *ngIf="mainBOptions" id="mainb" echarts [options]="mainBOptions" style="height: 350px"></div>
+              <mat-spinner *ngIf="fetchingMainB" diameter="50"></mat-spinner>
+              <div *ngIf="mainBError" class="error"> Could not load data: {{mainBError}} </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-sm-4 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Orders Quantity Summary</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li>
+                  <a class="collapse-link" name="hide_box2" (click)="hide_Box2()"><i class="fa fa-chevron-up"></i>{{isHidden_box2_text}}</a>
+                </li>
+                <li>
+                  <a class="close-link" name="close_box2"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content" *ngIf="!isHidden_box2">
+              <div *ngIf="pieChartOptions" id="echart_pie" echarts [options]="pieChartOptions" style="height: 350px" (chartInit)="onChartInit($event)"></div>
+              <mat-spinner *ngIf="fetchingPie" diameter="50"></mat-spinner>
+              <div *ngIf="pieError" class="error"> Could not load data: {{pieError}} </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <button mat-raised-button (click)="openDialog()">Pick</button> -->
+  </div>
+  <!-- /page content -->
+  <!-- footer content -->
+  <!-- /footer content -->
+</div>
+<!-- 
+<script src="~/src/js/bootstrap-confirm.js"></script>
+<script src="~/src/js/bootstrapbox.js"></script> -->

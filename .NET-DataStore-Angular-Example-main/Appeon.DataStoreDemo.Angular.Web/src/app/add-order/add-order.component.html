@@ -1,0 +1,764 @@
+<div
+  class="right_col container"
+  role="main"
+  *ngIf="(edit && dataReady) || !edit"
+>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2 *ngIf="edit">Edit Order <small></small></h2>
+          <h2 *ngIf="!edit">Add Order <small></small></h2>
+          <div class="navbar navbar-right panel_toolbox">
+            <button
+              type="button"
+              *ngIf="edit"
+              class="btn btn-secondary"
+              style="background: #7cc7aa;border:#7cc7aa"
+              (click)="addProduct()"
+            >
+              Add Order Detail
+            </button>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <br />
+          <form #addForm="ngForm">
+            <!-- Sales Order | Order Date -->
+            <div class="form-row">
+              <div class="col">
+                <label for="salesOrderID">
+                  <div class="label-text control-label">
+                    Sales Order ID <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <input
+                  disabled
+                  [(ngModel)]="model.salesOrderID"
+                  name="salesOrderID"
+                  id="salesOrderID"
+                  class="form-control"
+                  #name="ngModel"
+                  placeholder="Sales Order ID"
+                />
+              </div>
+              <div class="col">
+                <label for="orderDate">
+                  <div class="label-text control-label">
+                    Order Date <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <div
+                  class="datepicker"
+                  [ngClass]="{
+                    'form-field-error':
+                      !orderDateInput?.valid &&
+                      (orderDateInput?.dirty || orderDateInput?.touched)
+                  }"
+                >
+                  <div class="datepicker-input">
+                    <input
+                      matInput
+                      class="form-control"
+                      [(ngModel)]="model.orderDate"
+                      id="orderDate"
+                      name="orderDate"
+                      [matDatepicker]="picker"
+                      required
+                      type="datetime"
+                      placeholder="Choose a date"
+                      #orderDateInput="ngModel"
+                    />
+                  </div>
+                  <span class="datepicker-toggle">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                  </span>
+                  <mat-datepicker #picker></mat-datepicker>
+                </div>
+              </div>
+            </div>
+            <!-- Online Order Flag | Status -->
+            <div class="form-row">
+              <div class="col">
+                <label for="onlineOrderFlag">
+                  <div class="label-text control-label">
+                    Online Order Flag <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col align-middle">
+                <mat-slide-toggle
+                  [required]="true"
+                  [checked]="model.onlineOrderFlag"
+                ></mat-slide-toggle>
+              </div>
+              <div class="col">
+                <label for="status">
+                  <div class="label-text control-label">
+                    Status <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <select
+                  class="form-control"
+                  name="status"
+                  id="status"
+                  [ngClass]="{
+                    'form-field-error':
+                      !statusSelect?.valid &&
+                      (statusSelect?.dirty || statusSelect?.touched)
+                  }"
+                  [(ngModel)]="model.status"
+                  #statusSelect="ngModel"
+                  required
+                >
+                  <option [ngValue]="undefined" disabled selected hidden>
+                    Choose Status
+                  </option>
+                  <option [ngValue]="1">In process</option>
+                  <option [ngValue]="2">Approved</option>
+                  <option [ngValue]="3">Backordered</option>
+                  <option [ngValue]="4">Rejected</option>
+                  <option [ngValue]="5">Shipped</option>
+                  <option [ngValue]="6">Cancelled</option>
+                </select>
+              </div>
+            </div>
+            <!-- Due Date | Ship Date -->
+            <div class="form-row">
+              <div class="col">
+                <label for="dueDate">
+                  <div class="label-text control-label">
+                    Due Date <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <div
+                  class="datepicker"
+                  [ngClass]="{
+                    'form-field-error':
+                      !shipDateInput?.valid &&
+                      (shipDateInput?.dirty || shipDateInput?.touched)
+                  }"
+                >
+                  <div class="datepicker-input">
+                    <input
+                      matInput
+                      [(ngModel)]="model.dueDate"
+                      class="form-control"
+                      name="dueDate"
+                      id="dueDate"
+                      type="datetime"
+                      #dueDateInput="ngModel"
+                      required
+                      [matDatepicker]="pickerDueDate"
+                      placeholder="Choose a date"
+                    />
+                  </div>
+                  <span class="datepicker-toggle">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="pickerDueDate"
+                    ></mat-datepicker-toggle>
+                  </span>
+                  <mat-datepicker
+                    type="datetime"
+                    #pickerDueDate
+                  ></mat-datepicker>
+                </div>
+              </div>
+              <div class="col">
+                <label for="shipDate">
+                  <div class="label-text control-label">
+                    Ship Date <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <div
+                  class="datepicker"
+                  [ngClass]="{
+                    'form-field-error':
+                      !shipDateInput?.valid &&
+                      (shipDateInput?.dirty || shipDateInput?.touched)
+                  }"
+                >
+                  <div class="datepicker-input">
+                    <input
+                      matInput
+                      [(ngModel)]="model.shipDate"
+                      class="form-control"
+                      id="shipDate"
+                      required
+                      type="datetime"
+                      name="shipDate"
+                      #shipDateInput="ngModel"
+                      [matDatepicker]="pickerShipDate"
+                      placeholder="Choose a date"
+                    />
+                  </div>
+                  <span class="datepicker-toggle">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="pickerShipDate"
+                    ></mat-datepicker-toggle>
+                  </span>
+                  <mat-datepicker
+                    type="datetime"
+                    #pickerShipDate
+                  ></mat-datepicker>
+                </div>
+              </div>
+            </div>
+            <!-- Customer | Credit Card ID -->
+            <div class="form-row">
+              <div class="col">
+                <label for="customer">
+                  <div class="label-text control-label">
+                    Customer <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <ng-select
+                  name="customer"
+                  [(ngModel)]="model.customerID"
+                  #customerSelect="ngModel"
+                  (change)="loadDetailsForCustomer($event)"
+                  required
+                  [ngClass]="{
+                    'form-field-error':
+                      !customerSelect?.valid &&
+                      (customerSelect?.dirty || customerSelect?.touched)
+                  }"
+                >
+                  <ng-option [value]="undefined" disabled selected hidden>
+                    <ng-container *ngIf="customersFailed; else customersNoFail">
+                      Couldn't retrieve customers
+                    </ng-container>
+                    <ng-template #customersNoFail>
+                      Choose customer
+                    </ng-template>
+                  </ng-option>
+                  <ng-option
+                    *ngFor="let customer of customers$ | async"
+                    [value]="customer.id"
+                  >
+                    {{ customer.firstName }} {{ customer.lastName }}
+                  </ng-option>
+                </ng-select>
+                <!-- <select
+                  name="customer"
+                  id="customer"
+                  class="form-control"
+                  [(ngModel)]="model.customerID"
+                  (ngModelChange)="loadDetailsForCustomer($event)"
+                  required
+                >
+                  <option [ngValue]="undefined" disabled selected hidden>
+                    <ng-container *ngIf="customersFailed; else customersNoFail">
+                      Couldn't retrieve customers
+                    </ng-container>
+                    <ng-template #customersNoFail>
+                      Choose customer
+                    </ng-template>
+                  </option>
+                  <option
+                    *ngFor="let customer of customers$ | async"
+                    [ngValue]="customer.id"
+                  >
+                    {{ customer.firstName }} {{ customer.lastName }}
+                  </option>
+                </select> -->
+                <div class="progress-indicator" *ngIf="loadingCustomers">
+                  <mat-spinner diameter="35"></mat-spinner>
+                </div>
+                <div class="retry-button" *ngIf="customersFailed">
+                  <button
+                    type="button"
+                    class="btn btn-warning"
+                    (click)="loadCustomers()"
+                  >
+                    Retry
+                  </button>
+                </div>
+              </div>
+              <div class="col">
+                <label for="creditCardID">
+                  <div class="label-text control-label">
+                    Credit Card ID <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <select
+                  name="creditCardID"
+                  id="creditCardID"
+                  class="form-control"
+                  [(ngModel)]="model.creditCardID"
+                  #creditCardSelect="ngModel"
+                  [ngClass]="{
+                    'form-field-error':
+                      !creditCardSelect?.valid &&
+                      (creditCardSelect?.dirty || creditCardSelect?.touched)
+                  }"
+                  required
+                  [disabled]="model.customerID == undefined"
+                >
+                  <option [ngValue]="undefined" disabled selected hidden>
+                    Choose Credit Card
+                  </option>
+                  <ng-container *ngIf="customerCards$ | async as cards">
+                    <option *ngFor="let card of cards" [value]="card.id">
+                      {{ card.number }}
+                    </option>
+                  </ng-container>
+                </select>
+                <div class="progress-indicator" *ngIf="loadingCustomerCards">
+                  <mat-spinner diameter="35"></mat-spinner>
+                </div>
+              </div>
+            </div>
+            <!-- Bill To Address | Ship To Address -->
+            <div class="form-row">
+              <div class="col">
+                <label for="billToAddress">
+                  <div class="label-text control-label">
+                    Bill To Address <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <select
+                  name="billToAddress"
+                  id="billToAddress"
+                  #billAddressSelect="ngModel"
+                  [(ngModel)]="model.billToAddressID"
+                  [disabled]="model.customerID == undefined"
+                  [ngClass]="{
+                    'form-field-error':
+                      !billAddressSelect?.valid &&
+                      (billAddressSelect?.dirty || billAddressSelect?.touched)
+                  }"
+                  required
+                  class="form-control"
+                >
+                  <option [ngValue]="undefined" disabled selected hidden>
+                    Choose Address
+                  </option>
+                  <ng-container *ngIf="customerAddresses$ | async as addresses">
+                    <option
+                      *ngFor="let add of addresses"
+                      [value]="add.id"
+                    >
+                      {{ add.addressLine1 }}
+                    </option>
+                  </ng-container>
+                </select>
+                <div class="progress-indicator" *ngIf="loadingCustomerAddresses">
+                  <mat-spinner diameter="35"></mat-spinner>
+                </div>
+              </div>
+              <div class="col">
+                <label for="shipToAddress">
+                  <div class="label-text control-label">
+                    Ship To Address <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <select
+                  name="shipToAddress"
+                  [(ngModel)]="model.shipToAddressID"
+                  id="shipToAddress"
+                  #shippingAddressSelect="ngModel"
+                  [ngClass]="{
+                    'form-field-error':
+                      !shippingAddressSelect?.valid &&
+                      (shippingAddressSelect?.dirty ||
+                        shippingAddressSelect?.touched)
+                  }"
+                  required
+                  [disabled]="model.customerID == undefined"
+                  class="form-control"
+                >
+                  <option [ngValue]="undefined" disabled selected hidden>
+                    Choose Address
+                  </option>
+                  <ng-container *ngIf="customerAddresses$ | async as addresses">
+                    <option
+                      *ngFor="let add of addresses"
+                      [value]="add.id"
+                    >
+                      {{ add.addressLine1 }}
+                    </option>
+                  </ng-container>
+                </select>
+                <div class="progress-indicator" *ngIf="loadingCustomerAddresses">
+                  <mat-spinner diameter="35"></mat-spinner>
+                </div>
+              </div>
+            </div>
+            <!-- PO Number | Shipping Method -->
+            <div class="form-row">
+              <div class="col">
+                <label for="poNumber">
+                  <div class="label-text control-label">PO Number</div>
+                </label>
+              </div>
+              <div class="col">
+                <input
+                  name="poNumber"
+                  id="poNumber"
+                  #purchaseOrderInput="ngModel"
+                  [ngClass]="{
+                    'form-field-error':
+                      !purchaseOrderInput?.valid &&
+                      (purchaseOrderInput?.dirty || purchaseOrderInput?.touched)
+                  }"
+                  class="form-control"
+                  [(ngModel)]="model.purchaseOrderNumber"
+                />
+              </div>
+              <div class="col">
+                <label for="shippingMethod">
+                  <div class="label-text control-label">
+                    Shipping Method<span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <select
+                  name="shippingMethod"
+                  id="shippingMethod"
+                  [(ngModel)]="model.shipMethodID"
+                  #shippingMethodSelect="ngModel"
+                  [ngClass]="{
+                    'form-field-error':
+                      !shippingMethodSelect?.valid &&
+                      (shippingMethodSelect?.dirty ||
+                        shippingMethodSelect?.touched)
+                  }"
+                  class="form-control"
+                  required
+                >
+                  <option [ngValue]="undefined" disabled selected hidden>
+                    <ng-container
+                      *ngIf="shippingMethodsFailed; else shippingMethodsNoFail"
+                    >
+                      Couldn't retrieve shipping methods
+                    </ng-container>
+                    <ng-template #shippingMethodsNoFail>
+                      Choose shipping method
+                    </ng-template>
+                  </option>
+                  <option
+                    *ngFor="let shippingMethod of shippingMethods$ | async"
+                    [ngValue]="shippingMethod.id"
+                  >
+                    {{ shippingMethod.name }}
+                  </option>
+                </select>
+                <div class="progress-indicator" *ngIf="loadingShippingMethods">
+                  <mat-spinner diameter="35"></mat-spinner>
+                </div>
+              </div>
+            </div>
+            <!-- Account Number | Card Approval Code -->
+            <div class="form-row">
+              <div class="col">
+                <label for="accountNumber">
+                  <div class="label-text control-label">
+                    Account Number <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <input
+                  name="accountNumber"
+                  [(ngModel)]="model.accountNumber"
+                  required
+                  #accountNumberInput="ngModel"
+                  [ngClass]="{
+                    'form-field-error':
+                      !accountNumberInput?.valid &&
+                      (accountNumberInput?.dirty || accountNumberInput?.touched)
+                  }"
+                  id="accountNumber"
+                  class="form-control"
+                />
+              </div>
+              <div class="col">
+                <label for="cardApprovalCode">
+                  <div class="label-text control-label">
+                    Card Approval Code<span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <input
+                  name="cardApprovalCode"
+                  #cardApprovalCodeInput="ngModel"
+                  [(ngModel)]="model.creditCardApprovalCode"
+                  id="cardApprovalCode"
+                  required
+                  [ngClass]="{
+                    'form-field-error':
+                      !cardApprovalCodeInput?.valid &&
+                      (cardApprovalCodeInput?.dirty ||
+                        cardApprovalCodeInput?.touched)
+                  }"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <!-- Subtotal | Tax Amount -->
+            <div class="form-row">
+              <div class="col">
+                <label for="subtotal">
+                  <div class="label-text control-label">
+                    Subtotal <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <input
+                  name="subtotal"
+                  [(ngModel)]="model.subTotal"
+                  #subtotalInput="ngModel"
+                  id="subtotal"
+                  [ngClass]="{
+                    'form-field-error':
+                      !subtotalInput?.valid &&
+                      (subtotalInput?.dirty || subtotalInput?.touched)
+                  }"
+                  type="number"
+                  required
+                  class="form-control"
+                />
+              </div>
+              <div class="col">
+                <label for="taxAmount">
+                  <div class="label-text control-label">
+                    Tax Amount<span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <input
+                  name="taxAmount"
+                  [(ngModel)]="model.taxAmt"
+                  #taxAmountInput="ngModel"
+                  id="taxAmount"
+                  [ngClass]="{
+                    'form-field-error':
+                      !taxAmountInput?.valid &&
+                      (taxAmountInput?.dirty || taxAmountInput?.touched)
+                  }"
+                  required
+                  type="number"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <!-- Freight | Total Due -->
+            <div class="form-row">
+              <div class="col">
+                <label for="freight">
+                  <div class="label-text control-label">
+                    Freight <span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <input
+                  name="freight"
+                  [(ngModel)]="model.freight"
+                  #freightInput="ngModel"
+                  required
+                  id="freight"
+                  type="number"
+                  [ngClass]="{
+                    'form-field-error':
+                      !freightInput?.valid &&
+                      (freightInput?.dirty || freightInput?.touched)
+                  }"
+                  class="form-control"
+                />
+              </div>
+              <div class="col">
+                <label for="totalDue">
+                  <div class="label-text control-label">
+                    Total Due<span class="required">* </span>
+                  </div>
+                </label>
+              </div>
+              <div class="col">
+                <input
+                  name="totalDue"
+                  #totalDueInput="ngModel"
+                  id="totalDue"
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="model.totalDue"
+                  [ngClass]="{
+                    'form-field-error':
+                      !totalDueInput?.valid &&
+                      (totalDueInput?.dirty || totalDueInput?.touched)
+                  }"
+                />
+              </div>
+            </div>
+            <!-- Comments -->
+            <div class="form-row">
+              <div class="col-3">
+                <label for="comments">
+                  <div class="label-text control-label">Comments</div>
+                </label>
+              </div>
+              <div class="col">
+                <textarea
+                  name="comments"
+                  id="comments"
+                  placeholder="Comments"
+                  [(ngModel)]="model.comment"
+                  #commentsField="ngModel"
+                  class="form-control"
+                  [ngClass]="{
+                    'form-field-error':
+                      !commentsField?.valid &&
+                      (commentsField?.dirty || commentsField?.touched)
+                  }"
+                ></textarea>
+              </div>
+              <div class="col-3"></div>
+            </div>
+          </form>
+          <div class="separator-horizontal"></div>
+          <div class="form-row">
+            <div class="col"></div>
+            <div class="col row">
+              <button class="btn btn-primary" (click)="cancel()">Cancel</button>
+              <button
+                class="btn btn-success"
+                (click)="create(true)"
+
+                >
+                Submit
+              </button>
+              <!-- [disabled]="!addForm.valid" -->
+              <div class="col">
+                <mat-spinner diameter="35" *ngIf="submitting"></mat-spinner>
+              </div>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+        </div>
+      </div>
+      <div class="x_panel" *ngIf="edit">
+        <div class="x_title">
+          <h2 *ngIf="edit">Order Detail <small></small></h2>
+          <button
+            type="button"
+            class="btn btn-default"
+            (click)="loadProducts(model.productID)"
+          >
+            Update
+          </button>
+          <mat-progress-bar
+            style="position: absolute; width: 100%"
+            *ngIf="loadingProducts"
+            mode="indeterminate"
+          ></mat-progress-bar>
+          <ul class="nav navbar-right panel_toolbox">
+            <li>
+              <a id="a_collapse" class="collapse-link"
+                ><i class="fa fa-chevron-up"></i
+              ></a>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-expanded="false"
+                ><i class="fa fa-wrench"></i
+              ></a>
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <a href="#">Settings 1</a>
+                </li>
+                <li>
+                  <a href="#">Settings 2</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+          </ul>
+        </div>
+        <div class="x_content">
+          <br />
+          <div class="table-container">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Unit Price *</th>
+                  <th scope="col">Order Qty *</th>
+                  <th scope="col">Unit Price Discount</th>
+                  <th scope="col">Line Total</th>
+                  <th scope="col">Modified Date</th>
+                  <th scope="col">Operation</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="products$ | async as products; else loadingDetails">
+                <tr *ngFor="let product of products">
+                  <th scope="row">{{ product.id }}</th>
+                  <td>{{ product.productName }}</td>
+                  <td>{{ product.unitPrice | currency }}</td>
+                  <td>{{ product.orderQty }}</td>
+                  <td>{{ product.unitPriceDiscount | percent }}</td>
+                  <td>{{ product.lineTotal | currency }}</td>
+                  <td>{{ product.modifiedDate | date: "MM/dd/yyyy" }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm"
+                      (click)="editProduct(product)"
+                    >
+                      <fa-icon [icon]="faEdit"></fa-icon> Edit
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-sm"
+                      (click)="deleteProduct(product)"
+                    >
+                      <fa-icon [icon]="faTrash"></fa-icon> Delete
+                    </button>
+                  </td>
+                </tr>
+                <ng-template #loadingDetails> <tbody></tbody></ng-template>
+              </tbody>
+            </table>
+          </div>
+          <div class="separator-horizontal"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
